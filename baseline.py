@@ -3,16 +3,20 @@ import operator
 import pandas as pd
 from collections import Counter
 
-#path_to_data = # fill me!
+path_to_data = 'Data/'
 
 ##########################
 # load some of the files #                           
 ##########################
 
+
+# 'training_set.csv': for each of the 125 senders ('sender') in the training set, contains a list of message IDs ('mids')
 training = pd.read_csv(path_to_data + 'training_set.csv', sep=',', header=0)
 
+# 'training_info.csv': each row contains the ID ('mid'), date, body, and recipients of an email from the training set. Make sure you read this file with pandas (as shown in the 'baseline.py' script)
 training_info = pd.read_csv(path_to_data + 'training_info.csv', sep=',', header=0)
 
+# 'test_set.csv': for each of the 125 senders ('sender') in the test set, contains a list of message IDs ('mids'). For each of these messages, the recipients are to be predicted
 test = pd.read_csv(path_to_data + 'test_set.csv', sep=',', header=0)
 
 ################################
@@ -37,7 +41,7 @@ i = 0
 for sender, ids in emails_ids_per_sender.iteritems():
     recs_temp = []
     for my_id in ids:
-        recipients = training_info[training_info['mid']==int(my_id)]['recipients'].tolist()
+        recipients = training_info[training_info['mid'] == int(my_id)]['recipients'].tolist()
         recipients = recipients[0].split(' ')
         # keep only legitimate email addresses
         recipients = [rec for rec in recipients if '@' in rec]
@@ -95,7 +99,7 @@ for index, row in test.iterrows():
 # write predictions in proper format for Kaggle #                           
 #################################################
 
-#path_to_results = # fill me!
+path_to_results = 'Result/'
 
 with open(path_to_results + 'predictions_random.txt', 'wb') as my_file:
     my_file.write('mid,recipients' + '\n')
