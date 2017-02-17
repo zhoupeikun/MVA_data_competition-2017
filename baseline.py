@@ -38,6 +38,8 @@ all_senders = emails_ids_per_sender.keys()
 address_books = {}
 i = 0
 
+# emails_ids_per_sender -> {sender, mids}
+# e.g., {karen.buckley@enron.com,	158713 158697 200301 158679 278595 298162 2002..}
 for sender, ids in emails_ids_per_sender.iteritems():
     recs_temp = []
     for my_id in ids:
